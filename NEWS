@@ -1,0 +1,62 @@
+NEWS for the OpenCL package
+
+0.1-4	(under development)
+    o	devices with very long extensions strings could cause error
+	on retrieval. Fixed with larger static buffer.
+	(Thanks to Valerio Aimale again)
+
+    o	Improve error reporting by always including the OpenCL
+	error code
+
+
+0.1-3	2012-05-25
+    o	fix a bug causing device enumeration to use the default
+	device for device count regradless of the specified type.
+	This affects only systems with more than one type of device.
+	(Thanks to Valerio Aimale for reporting)
+
+    o	added dim argument to oclRun() which allows multidimensional
+	indexing (up to 3d) in the kernel. The dimensions can be
+	obtained in the kernel via get_global_size() and the index
+	values with get_global_id(). Note that using index vectors
+	instead of multidimensional indexing may perform better
+	depending on the device. The default is to use single
+	dimension (dim=size) which is the same as previous versions of
+	OpenCL.
+
+    o	add precision="best" in oclSimpleKernel which switches
+	automatically to double-precision if supported by the device
+
+    o	kernels objects are now less cryptic - they implement
+	print(), names() and $ methods for access to their attributes.
+
+
+0.1-2	2012-03-07
+    o	add the support for asynchronous calls, i.e., execution
+	parallel to the CPU or multiple parallel GPU operations.
+	This is done by using x <- oclRun(..., wait=FALSE) to
+	dispatch the kernel and then oclResult(x) to collect the
+	results later.
+
+    o	minor cleanup
+
+
+
+0.1-1	2011-08-09
+    o	improve memory management and clean up on error in oclRun()
+
+    o	use CL_MEM_USE_HOST_PTR instead of clEnqueueWriteBuffer() for
+	better performance on large input vectors
+
+    o	add support for native single precision representation
+	(see ?clFloat and native.result argument in oclRun())
+
+    o	added INSTALL file with links to common OpenCL implementations
+
+
+0.1-0	2011-08-08
+    o	first public release
+
+	includes support for single and double precision computations
+	as well as simple kernels (one output vector, arbitrary input)
+
